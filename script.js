@@ -39,6 +39,63 @@ if (reduceMotion || !("IntersectionObserver" in window)) {
   targets.forEach((el) => observer.observe(el));
 }
 
+// Stat count-ups — animate once when the stats band scrolls into view
+const counters = document.querySelectorAll(".count");
+const runCount = (el) => {
+  const target = Number(el.dataset.count);
+  const duration = 1000;
+  const start = performance.now();
+  const tick = (now) => {
+    const p = Math.min((now - start) / duration, 1);
+    el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+};
+if (reduceMotion || !("IntersectionObserver" in window)) {
+  counters.forEach((el) => (el.textContent = el.dataset.count));
+} else if (counters.length) {
+  const countObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          runCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.6 }
+  );
+  counters.forEach((el) => countObserver.observe(el));
+}
+
+// Appointment form — demo handler; wire to the booking backend before launch
+const form = document.getElementById("appointment-form");
+if (form) {
+  const errorMsg = document.getElementById("form-error");
+  const successMsg = document.getElementById("form-success");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const required = ["f-name", "f-phone", "f-dept"].map((id) => document.getElementById(id));
+    let valid = true;
+    required.forEach((field) => {
+      const empty = !field.value.trim();
+      field.classList.toggle("is-invalid", empty);
+      if (empty) valid = false;
+    });
+    errorMsg.hidden = valid;
+    if (!valid) return;
+    successMsg.hidden = false;
+    form.querySelector(".form-submit").disabled = true;
+    successMsg.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "nearest" });
+  });
+  form.addEventListener("input", (e) => {
+    if (e.target.classList.contains("is-invalid") && e.target.value.trim()) {
+      e.target.classList.remove("is-invalid");
+    }
+  });
+}
+
 // Active nav state follows the visible section
 const sections = [...document.querySelectorAll("section[id], footer[id]")];
 const navLinks = [...document.querySelectorAll(".main-nav .nav-link")];
