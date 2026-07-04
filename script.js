@@ -1,8 +1,35 @@
-// Header shadow once the page scrolls
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Header shadow, scroll progress bar, and gentle hero parallax — one rAF-throttled pass
 const header = document.querySelector(".site-header");
-const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 8);
+const progressBar = document.getElementById("scroll-progress-bar");
+const heroImg = document.getElementById("hero-img");
+let ticking = false;
+
+const onScroll = () => {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    const y = window.scrollY;
+    header.classList.toggle("is-scrolled", y > 8);
+    if (progressBar) {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.transform = `scaleX(${max > 0 ? Math.min(y / max, 1) : 0})`;
+    }
+    if (heroImg && !reduceMotion) {
+      const rect = heroImg.parentElement.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        const progress = 1 - (rect.top + rect.height / 2) / window.innerHeight; // ~0 at entry, ~1 at exit
+        const drift = (progress - 0.5) * 48; // ±24px
+        heroImg.style.transform = `translateY(${drift.toFixed(1)}px) scale(1.1)`;
+      }
+    }
+    ticking = false;
+  });
+};
 onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
+window.addEventListener("resize", onScroll, { passive: true });
 
 // Mobile navigation
 const toggle = document.getElementById("nav-toggle");
@@ -19,8 +46,15 @@ nav.addEventListener("click", (e) => {
   }
 });
 
-// Reveal-on-scroll (once), including the ECG divider draw
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Reveal-on-scroll (once), including the ECG divider draw + traveling pulse dot
+const startPulseDot = (divider) => {
+  divider.querySelectorAll(".ecg-dot-motion, .ecg-dot-fade").forEach((anim) => {
+    if (typeof anim.beginElement === "function") {
+      setTimeout(() => anim.beginElement(), 250); // let the line draw lead the dot
+    }
+  });
+};
+
 const targets = document.querySelectorAll(".reveal, .ecg-divider");
 if (reduceMotion || !("IntersectionObserver" in window)) {
   targets.forEach((el) => el.classList.add("in-view"));
@@ -30,6 +64,7 @@ if (reduceMotion || !("IntersectionObserver" in window)) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("in-view");
+          if (entry.target.classList.contains("ecg-divider")) startPulseDot(entry.target);
           observer.unobserve(entry.target);
         }
       });

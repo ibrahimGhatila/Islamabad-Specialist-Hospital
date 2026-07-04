@@ -11,6 +11,8 @@
 </head>
 <body>
 
+  <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
+
   <header class="site-header" id="top">
     <div class="container header-inner">
       <a class="brand" href="#top" aria-label="Islamabad Specialist Hospital — home">
@@ -37,7 +39,15 @@
       <div class="hero-wash" aria-hidden="true"></div>
       <div class="container hero-inner">
         <p class="eyebrow hero-item">Islamabad Specialist Hospital</p>
-        <h1 class="hero-headline hero-item">Expert Care. Every Life Matters<span class="accent-period">.</span></h1>
+        <h1 class="hero-headline" aria-label="Expert Care. Every Life Matters.">
+          <span aria-hidden="true">
+            <span class="w" style="--i:0"><span>Expert</span></span>
+            <span class="w" style="--i:1"><span>Care.</span></span>
+            <span class="w" style="--i:2"><span>Every</span></span>
+            <span class="w" style="--i:3"><span>Life</span></span>
+            <span class="w" style="--i:4"><span>Matters<span class="accent-period">.</span></span></span>
+          </span>
+        </h1>
         <p class="hero-subline hero-item">Islamabad Specialist Hospital brings together specialist doctors, advanced medical technology, and a culture of patient safety to deliver compassionate treatment&nbsp;— for every patient, every day.</p>
         <div class="hero-actions hero-item">
           <a href="#appointment" class="btn btn-primary btn-lg">Book an Appointment</a>
@@ -47,7 +57,7 @@
 
       <div class="container hero-media hero-item">
         <figure class="hero-photo">
-          <img src="https://www.trybloom.ai/img/529e7387-e340-49b3-8d80-4880de707617" alt="A nurse welcomes an elderly patient at the warm, daylit reception of Islamabad Specialist Hospital" width="1600" height="900">
+          <img id="hero-img" src="https://www.trybloom.ai/img/529e7387-e340-49b3-8d80-4880de707617" alt="A nurse welcomes an elderly patient at the warm, daylit reception of Islamabad Specialist Hospital" width="1600" height="900">
         </figure>
         <!-- Floating quick-access cards, echoing the reference layout -->
         <div class="hero-cards">
@@ -87,6 +97,10 @@
     <div class="ecg-divider" aria-hidden="true">
       <svg viewBox="0 0 1200 60" preserveAspectRatio="xMidYMid meet">
         <path class="ecg-path" d="M0 30 H520 l14 0 9 -22 13 44 10 -30 7 8 H1200" fill="none" stroke="#B41818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle class="ecg-dot" r="4.5" fill="#B41818" opacity="0">
+          <animateMotion class="ecg-dot-motion" dur="1.7s" begin="indefinite" fill="freeze" path="M0 30 H520 l14 0 9 -22 13 44 10 -30 7 8 H1200" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
+          <animate class="ecg-dot-fade" attributeName="opacity" values="0;1;1;0" keyTimes="0;0.06;0.85;1" dur="1.7s" begin="indefinite" fill="freeze"/>
+        </circle>
       </svg>
     </div>
 
@@ -171,6 +185,10 @@
     <div class="ecg-divider" aria-hidden="true">
       <svg viewBox="0 0 1200 60" preserveAspectRatio="xMidYMid meet">
         <path class="ecg-path" d="M0 30 H520 l14 0 9 -22 13 44 10 -30 7 8 H1200" fill="none" stroke="#B41818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle class="ecg-dot" r="4.5" fill="#B41818" opacity="0">
+          <animateMotion class="ecg-dot-motion" dur="1.7s" begin="indefinite" fill="freeze" path="M0 30 H520 l14 0 9 -22 13 44 10 -30 7 8 H1200" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
+          <animate class="ecg-dot-fade" attributeName="opacity" values="0;1;1;0" keyTimes="0;0.06;0.85;1" dur="1.7s" begin="indefinite" fill="freeze"/>
+        </circle>
       </svg>
     </div>
 
@@ -231,13 +249,59 @@
           <h2 class="section-title">We work with your insurance<span class="accent-period">.</span></h2>
           <p class="section-lede centered-lede">Islamabad Specialist Hospital is empanelled with leading insurance and takaful providers. Cashless admission and direct billing are available for covered patients.</p>
         </div>
-        <div class="insurance-grid reveal-group">
-          <div class="insurance-chip reveal"><span>Crescent Health</span></div>
-          <div class="insurance-chip reveal"><span>Unity Takaful</span></div>
-          <div class="insurance-chip reveal"><span>Meridian Assurance</span></div>
-          <div class="insurance-chip reveal"><span>Northline Insurance</span></div>
-          <div class="insurance-chip reveal"><span>Falcon Care</span></div>
-          <div class="insurance-chip reveal"><span>Alpine Health</span></div>
+        <!-- Logos hotlinked from the web for now — confirm actual empanelment and
+             replace with locally hosted, officially supplied logo files before launch -->
+        <div class="logo-marquee reveal" aria-label="Insurance partners">
+          <div class="marquee-track">
+            <div class="insurance-chip">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Jubilee_Insurance_Pakistan_logo.svg" alt="Jubilee Insurance logo" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">Jubilee Insurance</span>
+            </div>
+            <div class="insurance-chip">
+              <img src="https://images.seeklogo.com/logo-png/34/1/efu-insurance-logo-png_seeklogo-343291.png" alt="EFU Insurance logo" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">EFU Insurance</span>
+            </div>
+            <div class="insurance-chip">
+              <img src="https://images.seeklogo.com/logo-png/22/1/state-life-logo-png_seeklogo-228843.png" alt="State Life logo" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">State Life</span>
+            </div>
+            <div class="insurance-chip">
+              <img src="https://www.commercialriskonline.com/wp-content/uploads/2020/02/0_Adamjee-logo.jpg" alt="Adamjee Insurance logo" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">Adamjee Insurance</span>
+            </div>
+            <div class="insurance-chip">
+              <img src="https://server.igilife.com.pk/settings_images/igi-logo%201.png" alt="IGI Life logo" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">IGI Life</span>
+            </div>
+            <div class="insurance-chip">
+              <img src="https://buyinsurance.tpllife.com/wp-content/uploads/2023/07/TPLLife.png" alt="TPL Life logo" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">TPL Life</span>
+            </div>
+            <div class="insurance-chip" aria-hidden="true">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Jubilee_Insurance_Pakistan_logo.svg" alt="" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">Jubilee Insurance</span>
+            </div>
+            <div class="insurance-chip" aria-hidden="true">
+              <img src="https://images.seeklogo.com/logo-png/34/1/efu-insurance-logo-png_seeklogo-343291.png" alt="" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">EFU Insurance</span>
+            </div>
+            <div class="insurance-chip" aria-hidden="true">
+              <img src="https://images.seeklogo.com/logo-png/22/1/state-life-logo-png_seeklogo-228843.png" alt="" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">State Life</span>
+            </div>
+            <div class="insurance-chip" aria-hidden="true">
+              <img src="https://www.commercialriskonline.com/wp-content/uploads/2020/02/0_Adamjee-logo.jpg" alt="" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">Adamjee Insurance</span>
+            </div>
+            <div class="insurance-chip" aria-hidden="true">
+              <img src="https://server.igilife.com.pk/settings_images/igi-logo%201.png" alt="" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">IGI Life</span>
+            </div>
+            <div class="insurance-chip" aria-hidden="true">
+              <img src="https://buyinsurance.tpllife.com/wp-content/uploads/2023/07/TPLLife.png" alt="" loading="lazy" width="160" height="56" onerror="this.parentElement.classList.add(&quot;logo-fallback&quot;)">
+              <span class="chip-name">TPL Life</span>
+            </div>
+          </div>
         </div>
         <p class="insurance-note reveal">Don't see your provider? Call our billing desk at <strong>[PHONE]</strong> — new panels are added regularly.</p>
       </div>
@@ -283,6 +347,10 @@
     <div class="ecg-divider" aria-hidden="true">
       <svg viewBox="0 0 1200 60" preserveAspectRatio="xMidYMid meet">
         <path class="ecg-path" d="M0 30 H520 l14 0 9 -22 13 44 10 -30 7 8 H1200" fill="none" stroke="#B41818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle class="ecg-dot" r="4.5" fill="#B41818" opacity="0">
+          <animateMotion class="ecg-dot-motion" dur="1.7s" begin="indefinite" fill="freeze" path="M0 30 H520 l14 0 9 -22 13 44 10 -30 7 8 H1200" keyPoints="0;1" keyTimes="0;1" calcMode="linear"/>
+          <animate class="ecg-dot-fade" attributeName="opacity" values="0;1;1;0" keyTimes="0;0.06;0.85;1" dur="1.7s" begin="indefinite" fill="freeze"/>
+        </circle>
       </svg>
     </div>
 
