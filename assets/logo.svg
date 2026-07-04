@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" width="360" height="96" role="img" aria-label="Islamabad Specialist Hospital logo">
+  <!-- Placeholder logo: replace this file with the official iSH logo asset -->
+  <g>
+    <text x="0" y="52" font-family="Poppins, Arial, sans-serif" font-size="52" font-weight="800" fill="#1E3246" letter-spacing="-1">iSH</text>
+    <!-- red medical cross -->
+    <g fill="#B41818">
+      <rect x="118" y="14" width="10" height="34" rx="2"/>
+      <rect x="106" y="26" width="34" height="10" rx="2"/>
+    </g>
+    <!-- ECG pulse line -->
+    <path d="M150 31 H190 l6 0 5 -14 8 28 6 -20 4 6 H255" fill="none" stroke="#B41818" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="0" y="82" font-family="Poppins, Arial, sans-serif" font-size="14.5" font-weight="600" fill="#1E3246" letter-spacing="3.2">ISLAMABAD SPECIALIST HOSPITAL</text>
+</svg>
